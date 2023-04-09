@@ -15,7 +15,6 @@ import {
   
   import config from '../../Config';
   
-  
   const apolloClientSetup = () => {
       const link = from([
         createUploadLink({ uri: config.graphqlURI }),
@@ -25,6 +24,7 @@ import {
         const token = await AsyncStorage.getItem(config.TOKEN);
   
         operation.setContext({
+          testdata: 'HELLO',
           headers: {
             authorization: token ? `${token}` : 'none'
           }
@@ -34,11 +34,13 @@ import {
   
       const client = new ApolloClient({
         link: authLink.concat(link),
-        cache: new InMemoryCache()
+        cache: new InMemoryCache(),
+        clientState: {
+          test: 'HELLO'
+        }
       });
   
     return client;
-  
   }
   
   export default apolloClientSetup;

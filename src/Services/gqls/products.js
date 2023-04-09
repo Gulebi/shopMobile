@@ -7,6 +7,7 @@ const productFragment = `
     price
     picture
     date
+    currency
     user_id
     price_one
     company{
