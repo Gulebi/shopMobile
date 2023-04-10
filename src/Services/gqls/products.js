@@ -23,6 +23,49 @@ const productFragment = `
     }
   }
 `
+const getProduct = gql`
+  ${productFragment}
+
+  query($id: ID!) {
+    getProduct(id: $id) {
+      error
+      msg
+      attributions{
+        status
+        size{
+          attr_param
+          status
+        }
+      }
+      product{
+        ...ProductFragment
+        description
+        count_views
+        count_favorites
+        vendor_code
+        color
+        company{
+          _id
+          name
+        }
+        addition_product{
+          descriptions{
+            name
+            value
+          }
+          characteristics{
+            name
+            value
+          }
+        }
+      }
+      slider_list{
+        _id
+        url
+      }
+    }
+  }
+`;
 
 const getProducts = gql`
   ${productFragment}
@@ -34,6 +77,7 @@ const getProducts = gql`
   }
 `;
 const productsGQL = {
-    getProducts
+    getProducts,
+    getProduct
 }
 export default productsGQL
