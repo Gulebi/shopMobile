@@ -1,3 +1,3 @@
-import productsGQL from './products'
+import productsGQL from "./products";
 
-export {productsGQL}
+export { productsGQL };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 const productFragment = `
   fragment ProductFragment on Product {
     _id
@@ -22,62 +22,62 @@ const productFragment = `
       _id
     }
   }
-`
+`;
 const getProduct = gql`
-  ${productFragment}
+    ${productFragment}
 
-  query($id: ID!) {
-    getProduct(id: $id) {
-      error
-      msg
-      attributions{
-        status
-        size{
-          attr_param
-          status
+    query ($id: ID!) {
+        getProduct(id: $id) {
+            error
+            msg
+            attributions {
+                status
+                size {
+                    attr_param
+                    status
+                }
+            }
+            product {
+                ...ProductFragment
+                description
+                count_views
+                count_favorites
+                vendor_code
+                color
+                company {
+                    _id
+                    name
+                }
+                addition_product {
+                    descriptions {
+                        name
+                        value
+                    }
+                    characteristics {
+                        name
+                        value
+                    }
+                }
+            }
+            slider_list {
+                _id
+                url
+            }
         }
-      }
-      product{
-        ...ProductFragment
-        description
-        count_views
-        count_favorites
-        vendor_code
-        color
-        company{
-          _id
-          name
-        }
-        addition_product{
-          descriptions{
-            name
-            value
-          }
-          characteristics{
-            name
-            value
-          }
-        }
-      }
-      slider_list{
-        _id
-        url
-      }
     }
-  }
 `;
 
 const getProducts = gql`
-  ${productFragment}
+    ${productFragment}
 
-  query($query: QueryProdustInput) {
-    getProducts(query: $query) {
-      ...ProductFragment
+    query ($query: QueryProdustInput) {
+        getProducts(query: $query) {
+            ...ProductFragment
+        }
     }
-  }
 `;
 const productsGQL = {
     getProducts,
-    getProduct
-}
-export default productsGQL
+    getProduct,
+};
+export default productsGQL;

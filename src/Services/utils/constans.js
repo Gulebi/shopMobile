@@ -1,9 +1,5 @@
-
 const colors = {
-  mainColor: '#04283e'
-}
+    mainColor: "#04283e",
+};
 
-
-
-
-export default {colors}
+export default { colors };
