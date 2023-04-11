@@ -10,9 +10,9 @@ const getProducts = (setProductList, query = {})=>{
         // console.log('PRODUCTS_HOME', getProducts)
        
         let cartList = await storeCart.get_cart_list()
-        console.log(33333,cartList) 
+      
         setProductList(getProducts.map((item)=>{
-          if(cartList.find((el)=>{
+          if(cartList?.find((el)=>{
             return el._id === item._id
           })) return {...item, inCart: true}
           return item

@@ -10,12 +10,12 @@ import {storeCart} from '../../Services/store'
 const windowWidth = Dimensions.get('window').width;
 
 export default function ItemProduct({item, navigation}){
-  const [catrtStatus, setCatrtStatus] = useState(false)
+  const [cartStatus, setCartStatus] = useState(false)
 
   const putInCart = async ()=>{
-    if(!catrtStatus && !item.inCart){
+    if(!cartStatus && !item.inCart){
 
-      setCatrtStatus(true)
+      setCartStatus(true)
       await storeCart.set_cart_list(item)
     }
   }
@@ -35,7 +35,7 @@ export default function ItemProduct({item, navigation}){
           <Text>{item.price} {item.currency}</Text>
           <TouchableOpacity onPress={putInCart}>
             <MaterialCommunityIcons
-              name={catrtStatus || item.inCart ? 'cart-check' : 'cart-arrow-down'}
+              name={cartStatus || item.inCart ? 'cart-check' : 'cart-arrow-down'}
               size={23}
               color={constans.colors.mainColor}
             />
