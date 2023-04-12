@@ -5,12 +5,18 @@ import React, { useState } from "react";
 
 const windowWidth = Dimensions.get("window").width;
 
-export default function CartItem({ item, navigation }) {
+export default function CartItem({ item, navigation, onDelete, updateList }) {
     const [amount, setAmount] = useState(1);
 
     const changeAmount = (num) => {
         setAmount(amount + num);
+        updateList();
         storeCart.update_cart_list(item, amount);
+    };
+
+    const deleteItem = () => {
+        onDelete(item._id);
+        storeCart.remove_cart_list(item);
     };
 
     return (
@@ -29,7 +35,7 @@ export default function CartItem({ item, navigation }) {
                     <Button style={styles.controlsBtn} title="+" onPress={() => amount < 100 && changeAmount(1)} />
                 </View>
                 <View style={styles.controlsDelete}>
-                    <Button title="Delete" onPress={() => storeCart.remove_cart_list(item)} />
+                    <Button title="Delete" onPress={deleteItem} />
                 </View>
             </View>
         </View>

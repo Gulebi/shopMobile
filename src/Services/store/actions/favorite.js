@@ -6,7 +6,9 @@ const get_favorite_list = async () => {
 };
 
 const remove_favorite = async (_id) => {
-    let favorites = await get_favorite_list().filter((el) => el._id !== _id);
+    let favorites = await get_favorite_list();
+
+    favorites = favorites.filter((el) => el._id !== _id);
 
     return await setStorage(FAVORITE_LIST, favorites);
 };

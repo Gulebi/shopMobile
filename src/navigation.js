@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { constans } from "./services/utils";
 import ProductDetails from "./screens/productDetails";
 import Cart from "./screens/cart";
+import Favorites from "./screens/favorites";
 import { Text } from "react-native";
 import Products from "./screens/products";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -45,19 +46,6 @@ function HomeStack() {
     );
 }
 
-// function CartStack() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="Cart"
-//       screenOptions={{headerShown: false}}>
-
-//       <Stack.Screen
-//         name="Screen3"
-//         component={Screen3} />
-//     </Stack.Navigator>
-//   );
-// }
-
 const Navigation = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -73,6 +61,8 @@ const Navigation = () => {
                                 iconName = focused ? "home-circle" : "home-circle-outline";
                             } else if (route.name === "CartStack") {
                                 iconName = focused ? "cart" : "cart-outline";
+                            } else if (route.name === "FavoritesStack") {
+                                iconName = focused ? "heart" : "heart-outline";
                             }
                             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
                         },
@@ -84,6 +74,14 @@ const Navigation = () => {
                         options={{
                             headerShown: false,
                             title: "Главная",
+                        }}
+                    />
+                    <Tab.Screen
+                        name="FavoritesStack"
+                        component={Favorites}
+                        options={{
+                            ...defOptions,
+                            title: "Избранное",
                         }}
                     />
                     <Tab.Screen

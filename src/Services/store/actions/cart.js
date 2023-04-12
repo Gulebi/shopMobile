@@ -29,7 +29,7 @@ const set_cart_list = async (item, list) => {
 };
 
 const update_cart_list = async (item, count) => {
-    let cartList = get_cart_list();
+    let cartList = await get_cart_list();
     if (Array.isArray(cartList)) {
         cartList = cartList.map((el) => {
             if (el._id === item._id) return { ...el, count };

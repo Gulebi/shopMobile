@@ -1,27 +1,25 @@
-import { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Dimensions, Image } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, Button, TouchableOpacity } from "react-native";
 import config from "../../config";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { constans, helpers } from "../../services/utils";
-import { storeCart } from "../../services/store";
+import { storeCart, storeFavorite } from "../../services/store";
+import React, { useState } from "react";
 
 const windowWidth = Dimensions.get("window").width;
 
-export default function ItemProduct({ item, navigation }) {
-    const [cartStatus, setCartStatus] = useState(false);
+export default function FavoriteItem({ item, navigation, onDelete }) {
+    const [isFav, setIsFav] = useState(true);
 
-    const putInCart = async () => {
-        if (!cartStatus || !item.inCart) {
-            setCartStatus(true);
-            await storeCart.set_cart_list(item);
+    const unSetFav = () => {
+        if (isFav) {
+            setIsFav(!isFav);
+            onDelete(item._id);
+            storeFavorite.remove_favorite(item._id);
         }
     };
 
     return (
-        <TouchableOpacity
-            style={styles.item}
-            onPress={() => navigation.navigate("ProductDetails", { item, title: helpers.limitStr(item.title, 24) })}
-        >
+        <View style={styles.item}>
             <View style={styles.itemContent}>
                 <View>
                     <Image
@@ -37,25 +35,25 @@ export default function ItemProduct({ item, navigation }) {
                     <Text>
                         {item.price} {item.currency}
                     </Text>
-                    <TouchableOpacity onPress={putInCart}>
+                    <TouchableOpacity onPress={unSetFav}>
                         <MaterialCommunityIcons
-                            name={cartStatus || item.inCart ? "cart-check" : "cart-arrow-down"}
+                            name={isFav ? "heart" : "heart-outline"}
                             size={23}
                             color={constans.colors.mainColor}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     item: {
+        flex: 1,
         backgroundColor: "#f1f1f1",
         padding: 10,
         borderRadius: 10,
-        flex: 1,
     },
     itemContent: {
         flex: 1,

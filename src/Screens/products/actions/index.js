@@ -1,6 +1,6 @@
 import { storeCart } from "../../../services/store";
 
-const getProducts = (setProductList, query = {}) => {
+const getProductsAction = (setProductList, query = {}) => {
     return {
         variables: {
             query,
@@ -29,4 +29,4 @@ const getProducts = (setProductList, query = {}) => {
     };
 };
 
-export { getProducts };
+export { getProductsAction };

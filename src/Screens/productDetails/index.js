@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useQuery } from "@apollo/client";
 import { productsGQL } from "../../services/gqls";
 import actionProducts from "./actions";
+import { ProductDetailsCard } from "../../components";
+
 const ProductDetails = ({ navigation, route }) => {
     const [productData, setProducData] = useState(route.params?.item);
 
@@ -12,10 +14,14 @@ const ProductDetails = ({ navigation, route }) => {
 
     useQuery(productsGQL.getProduct, actionProducts.getProduct(putProduct, route.params?.item?._id));
 
-    return (
-        <View>
-            <Text>Screen2 {`${productData?.title}`} </Text>
-        </View>
-    );
+    return <View style={styles.container}>{productData && <ProductDetailsCard item={productData} />}</View>;
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 10,
+    },
+});
+
 export default ProductDetails;
